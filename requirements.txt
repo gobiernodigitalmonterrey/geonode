@@ -87,7 +87,7 @@ git+https://github.com/GeoNode/pinax-notifications.git@django_upgrade#egg=pinax-
 
 # GeoNode org maintained apps.
 # django-geonode-mapstore-client==4.0.5
-git+https://github.com/gobiernodigitalmonterrey/geonode-mapstore-client@datos_mty_dev#egg=django_geonode_mapstore_client
+git+https://github.com/gobiernodigitalmonterrey/geonode-mapstore-client@datos_mty#egg=django_geonode_mapstore_client
 git+https://github.com/gobiernodigitalmonterrey/geonode-importer.git@datos_mty#egg=geonode-importer
 django-avatar==8.0.0
 git+https://github.com/GeoNode/geonode-oauth-toolkit.git@openid-connect#egg=geonode-oauth-toolkit
