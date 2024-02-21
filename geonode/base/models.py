@@ -764,7 +764,7 @@ class ResourceBase(PolymorphicModel, PermissionLevelMixin, ItemBase):
         on_delete=models.SET_NULL,
     )
     language = models.CharField(
-        _("language"), max_length=3, choices=enumerations.ALL_LANGUAGES, default="eng", help_text=language_help_text
+        _("language"), max_length=3, choices=enumerations.ALL_LANGUAGES, default="esp", help_text=language_help_text
     )
     category = models.ForeignKey(
         TopicCategory,
@@ -1077,6 +1077,11 @@ class ResourceBase(PolymorphicModel, PermissionLevelMixin, ItemBase):
             self.set_permissions(
                 approval_status_changed=_approval_status_changed, group_status_changed=_group_status_changed
             )
+
+        if not self.regions:
+            default_region = Region.objects.filter(code="MEX")
+            if default_region.exists():
+                self.regions.add(default_region.first())
 
     def delete(self, notify=True, *args, **kwargs):
         """

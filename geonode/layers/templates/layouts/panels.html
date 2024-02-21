@@ -433,6 +433,12 @@ span.grippy::after {
                                         <span><label for="{{ dataset_form.language|id }}">{{ dataset_form.language.label }}</label></span>
                                         <!--<p class="xxs-font-size">(Language used within the dataset)</p>-->
                                         {{ dataset_form.language }}
+                                        {% block language %}
+                                        {% if resource.language %}
+                                        <dt>{% trans "Language" %}</dt>
+                                        <dd>{{ resource.language_title }}</dd>
+                                        {% endif %}
+                                        {% endblock language %}                                
                                     </div>
                                     <div>
                                         <span><label for="{{ dataset_form.license|id }}">{{ dataset_form.license.label }}</label></span>
@@ -458,6 +464,7 @@ span.grippy::after {
                                       </div>
                                 </div>
                                 {% endblock dataset_regions %}
+
                                 {% block dataset_constraints %}
                                 <div class="col-lg-4">
                                     <div>
@@ -470,8 +477,21 @@ span.grippy::after {
                                         <!--<p class="xxs-font-size">(Other restrictions and legal prerequisites for accessing or use data and metadata)</p>-->
                                         {{ dataset_form.constraints_other }}
                                     </div>
+
                                 </div>
                                 {% endblock dataset_constraints %}
+
+                                {% block restriction_code_type %}
+                                {% if resource.restriction_code_type or resource.constraints_other %}
+                                <dt>{% trans "Restrictions" %}</dt>
+                                <dd>{% if resource.constraints_other %}
+                                    {{ resource.constraints_other|sanitize_html|safe }}
+                                    {% else %}
+                                    {{ resource.restriction_code_type }}
+                                    {% endif %}</dd>
+                                {% endif %}
+                                {% endblock restriction_code_type %}
+                                
                             </div>
                             <div class="row">
                             </div>
