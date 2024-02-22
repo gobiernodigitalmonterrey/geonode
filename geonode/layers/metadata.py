@@ -78,7 +78,7 @@ def iso2dict(exml):
 
     mdata = MD_Metadata(exml)
     identifier = mdata.identifier
-    vals["language"] = mdata.language or mdata.languagecode or "eng"
+    vals["language"] = mdata.language or mdata.languagecode or "es"
     if mdata.identification[0].spatialrepresentationtype:
         vals["spatial_representation_type"] = mdata.identification[0].spatialrepresentationtype[0]
 
