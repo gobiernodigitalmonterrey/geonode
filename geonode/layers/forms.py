@@ -70,6 +70,7 @@ class DatasetForm(ResourceBaseForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields["regions"].choices = get_tree_data()
+        self.fields['language'].initial = ("spa", "Spanish"),  # establece el valor predeterminado para el campo 'language'
         for field in self.fields:
             help_text = self.fields[field].help_text
             self.fields[field].help_text = None
@@ -84,7 +85,6 @@ class DatasetForm(ResourceBaseForm):
                         "data-html": "true",
                     }
                 )
-
 
 class LayerUploadForm(forms.Form):
     base_file = forms.FileField()

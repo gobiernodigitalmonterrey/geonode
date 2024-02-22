@@ -431,8 +431,7 @@ span.grippy::after {
                                 <div class="col-lg-4">
                                     <div>
                                         <span><label for="{{ dataset_form.language|id }}">{{ dataset_form.language.label }}</label></span>
-                                        <!--<p class="xxs-font-size">(Language used within the dataset)</p>-->
-                                        {{ dataset_form.language }}
+                                        {{ dataset_form.language }}                       
                                     </div>
                                     <div>
                                         <span><label for="{{ dataset_form.license|id }}">{{ dataset_form.license.label }}</label></span>
@@ -445,33 +444,7 @@ span.grippy::after {
                                     </div>
                                 </div>
                                 {% endblock dataset_attributes %}
-                                {% block dataset_regions %}
-                                <div class="col-lg-4">
-                                      <div id="regions_multiselect_container">
-                                          <span><label for="{{ dataset_form.regions|id }}">{{ dataset_form.regions.label }}</label></span>
-                                          {{ dataset_form.regions }}
-                                      </div>
-                                      <div>
-                                          <span><label for="{{ dataset_form.data_quality_statement|id }}">{{ dataset_form.data_quality_statement.label }}</label></span>
-                                          <!--<p class="xxs-font-size">(General explanation of the data producer's knowledge about the lineage)</p>-->
-                                          {{ dataset_form.data_quality_statement }}
-                                      </div>
-                                </div>
-                                {% endblock dataset_regions %}
-                                {% block dataset_constraints %}
-                                <div class="col-lg-4">
-                                    <div>
-                                        <span><label for="{{ dataset_form.restriction_code_type|id }}">{{ dataset_form.restriction_code_type.label }}</label></span>
-                                        <!--<p class="xxs-font-size">(Limitation/s placed upon the access or use of data)</p>-->
-                                        {{ dataset_form.restriction_code_type }}
-                                    </div>
-                                    <div>
-                                        <span><label for="{{ dataset_form.constraints_other|id }}">{{ dataset_form.constraints_other.label }}</label></span>
-                                        <!--<p class="xxs-font-size">(Other restrictions and legal prerequisites for accessing or use data and metadata)</p>-->
-                                        {{ dataset_form.constraints_other }}
-                                    </div>
-                                </div>
-                                {% endblock dataset_constraints %}
+                                
                             </div>
                             <div class="row">
                             </div>

@@ -315,6 +315,7 @@ COUNTRIES = (
 
 # Taken from http://www.w3.org/WAI/ER/IG/ert/iso639.htm
 ALL_LANGUAGES = (
+    ("spa", "Spanish"),
     ("abk", "Abkhazian"),
     ("aar", "Afar"),
     ("afr", "Afrikaans"),
@@ -402,7 +403,6 @@ ALL_LANGUAGES = (
     ("slv", "Slovenian"),
     ("som", "Somali"),
     ("sot", "Sotho"),
-    ("spa", "Spanish"),
     ("sun", "Sudanese"),
     ("swa", "Swahili"),
     ("tgl", "Tagalog"),

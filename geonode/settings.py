@@ -187,7 +187,7 @@ USE_L10N = ast.literal_eval(os.getenv("USE_I18N", "True"))
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
-LANGUAGE_CODE = os.getenv("LANGUAGE_CODE", "en")
+LANGUAGE_CODE = os.getenv("LANGUAGE_CODE", "es")
 
 _DEFAULT_LANGUAGES = """(
     ('af', 'Afrikaans'),
