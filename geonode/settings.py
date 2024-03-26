@@ -1951,6 +1951,11 @@ SOCIALACCOUNT_LOGIN_ON_GET = ast.literal_eval(os.environ.get("SOCIALACCOUNT_LOGI
 SOCIALACCOUNT_WITH_GEONODE_LOCAL_SINGUP = ast.literal_eval(
     os.environ.get("SOCIALACCOUNT_WITH_GEONODE_LOCAL_SINGUP", "True")
 )
+# Custom LOGOUT setting
+# The CUSTOM_LOGOUT_DATA setting allows for flexible customization of the logout process.
+CUSTOM_LOGOUT_DATA = ast.literal_eval(
+    os.environ.get("CUSTOM_LOGOUT_DATA", "{'message': 'You have successfully logged out!', 'redirect_to_main_page': True}")
+)
 
 # GeoNode Default Generic OIDC Provider
 

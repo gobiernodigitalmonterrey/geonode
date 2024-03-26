@@ -16,8 +16,8 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 #
 #########################################################################
-from allauth.account.views import SignupView
-from django.contrib.auth import get_user_model
+from allauth.account.views import SignupView, LogoutView
+from django.contrib.auth import get_user_model, logout as django_logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.shortcuts import render, redirect, get_object_or_404
@@ -52,6 +52,54 @@ class CustomSignupView(SignupView):
         ret = super().get_context_data(**kwargs)
         ret.update({"account_geonode_local_signup": settings.SOCIALACCOUNT_WITH_GEONODE_LOCAL_SINGUP})
         return ret
+
+
+class CustomLogoutView(LogoutView):
+    """
+    Custom logout view that extends the functionality of LogoutView from allauth.
+
+    This view performs additional tasks to ensure proper logout, such as terminating
+    the Django session before executing other logout operations.
+
+    It also adds custom data to the context, allowing for flexible customization of
+    the logout page based on settings defined in settings.py.
+    """
+
+    def get(self, request, *args, **kwargs):
+        """
+        Handle GET requests.
+
+        This method logs out the Django session and then calls the get() method of
+        the parent class to perform any additional logout tasks.
+        """
+        try:
+            # Log out the Django session
+            django_logout(request)
+        except Exception as e:
+            # Handle any exceptions that occur during logout
+            # For example, log the error or perform any cleanup
+            print(f"An error occurred during logout: {e}")
+
+        # Call the get() method of the parent class to perform additional logout tasks
+        return super().get(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        """
+        Add custom data to the context.
+
+        This method adds custom data, specified in the CUSTOM_LOGOUT_DATA setting,
+        to the context. This allows for customization of the logout page based on
+        settings defined in settings.py.
+        """
+        context = super().get_context_data(**kwargs)
+
+        # Retrieve CUSTOM_LOGOUT_DATA from settings if available, otherwise provide default data
+        custom_logout_data = getattr(settings, 'CUSTOM_LOGOUT_DATA', {'message': 'You have successfully logged out!'})
+
+        # Add custom data to the context
+        context['custom_data'] = custom_logout_data
+
+        return context
 
 
 @login_required
