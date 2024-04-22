@@ -74,6 +74,7 @@ class CustomLogoutView(LogoutView):
         """
         try:
             # Log out the Django session
+            print("Logging out", request.user.username)
             django_logout(request)
         except Exception as e:
             # Handle any exceptions that occur during logout
@@ -95,7 +96,7 @@ class CustomLogoutView(LogoutView):
 
         # Retrieve CUSTOM_LOGOUT_DATA from settings if available, otherwise provide default data
         custom_logout_data = getattr(settings, 'CUSTOM_LOGOUT_DATA', {'message': 'You have successfully logged out!'})
-
+        print("Custom logout data:", custom_logout_data)
         # Add custom data to the context
         context['custom_data'] = custom_logout_data
 
