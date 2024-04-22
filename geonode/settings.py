@@ -371,7 +371,7 @@ WHITENOISE_MANIFEST_STRICT = ast.literal_eval(os.getenv("WHITENOISE_MANIFEST_STR
 COMPRESS_STATIC_FILES = ast.literal_eval(os.getenv("COMPRESS_STATIC_FILES", "False"))
 
 MEMCACHED_ENABLED = ast.literal_eval(os.getenv("MEMCACHED_ENABLED", "False"))
-MEMCACHED_BACKEND = os.getenv("MEMCACHED_BACKEND", "django.core.cache.backends.memcached.PyMemcacheCache")
+MEMCACHED_BACKEND = os.getenv("MEMCACHED_BACKEND", "django.core.cache.backends.memcached.PyLibMCCache")
 MEMCACHED_LOCATION = os.getenv("MEMCACHED_LOCATION", "127.0.0.1:11211")
 MEMCACHED_LOCK_EXPIRE = int(os.getenv("MEMCACHED_LOCK_EXPIRE", 3600))
 MEMCACHED_LOCK_TIMEOUT = int(os.getenv("MEMCACHED_LOCK_TIMEOUT", 10))
@@ -548,6 +548,11 @@ REST_FRAMEWORK_EXTENSIONS = {
 REST_API_DEFAULT_PAGE = os.getenv("REST_API_DEFAULT_PAGE", 1)
 REST_API_DEFAULT_PAGE_SIZE = os.getenv("REST_API_DEFAULT_PAGE_SIZE", 10)
 REST_API_DEFAULT_PAGE_QUERY_PARAM = os.getenv("REST_API_DEFAULT_PAGE_QUERY_PARAM", "page_size")
+
+REST_API_PRESETS = {
+    "bare": {"exclude[]": ["*"], "include[]": ["pk", "title"]},
+    "basic": {"exclude[]": ["*"], "include[]": ["pk", "title", "abstract", "resource_type"]},
+}
 
 DYNAMIC_REST = {
     # DEBUG: enable/disable internal debugging
@@ -1942,7 +1947,7 @@ ACCOUNT_EMAIL_VERIFICATION = os.environ.get("ACCOUNT_EMAIL_VERIFICATION", "none"
 
 # Since django-allauth 0.43.0.
 ACCOUNT_SIGNUP_REDIRECT_URL = os.environ.get("ACCOUNT_SIGNUP_REDIRECT_URL", os.getenv("SITEURL", _default_siteurl))
-ACCOUNT_LOGIN_ATTEMPTS_LIMIT = int(os.getenv("ACCOUNT_LOGIN_ATTEMPTS_LIMIT", "3"))
+ACCOUNT_RATE_LIMITS = {"login_failed": os.getenv("ACCOUNT_LOGIN_ATTEMPTS_LIMIT", "10/m/ip,5/5m/key")}
 ACCOUNT_MAX_EMAIL_ADDRESSES = int(os.getenv("ACCOUNT_MAX_EMAIL_ADDRESSES", "2"))
 
 SOCIALACCOUNT_AUTO_SIGNUP = ast.literal_eval(os.environ.get("SOCIALACCOUNT_AUTO_SIGNUP", "True"))
@@ -1987,7 +1992,7 @@ _AZURE_SOCIALACCOUNT_PROVIDER = {
     "COMMON_FIELDS": {"email": "mail", "last_name": "surname", "first_name": "givenName"},
     "UID_FIELD": "unique_name",
     "GROUP_ROLE_MAPPER_CLASS": SOCIALACCOUNT_GROUP_ROLE_MAPPER,
-    "ACCOUNT_CLASS": "allauth.socialaccount.providers.azure.provider.AzureAccount",
+    "ACCOUNT_CLASS": "allauth.socialaccount.providers.microsoft.provider.MicrosoftGraphAccount",
     "ACCESS_TOKEN_URL": f"https://login.microsoftonline.com/{_AZURE_TENANT_ID}/oauth2/v2.0/token",
     "AUTHORIZE_URL": f"https://login.microsoftonline.com/{_AZURE_TENANT_ID}/oauth2/v2.0/authorize",
     "PROFILE_URL": "https://graph.microsoft.com/v1.0/me",
@@ -2221,6 +2226,15 @@ METADATA_STORERS = [
 
 
 """
+List of modules that implement the deletion rules for a user
+"""
+USER_DELETION_RULES = [
+    "geonode.people.utils.user_has_resources"
+    # ,"geonode.people.utils.user_is_manager"
+]
+
+
+"""
 Define the URLs patterns used by the SizeRestrictedFileUploadHandler
 to evaluate if the file is greater than the limit size defined
 """
@@ -2328,7 +2342,9 @@ IMPORTER_HANDLERS = ast.literal_eval(
     'importer.handlers.shapefile.handler.ShapeFileHandler',\
     'importer.handlers.kml.handler.KMLFileHandler',\
     'importer.handlers.csv.handler.CSVFileHandler',\
-    'importer.handlers.geotiff.handler.GeoTiffFileHandler'\
+    'importer.handlers.geotiff.handler.GeoTiffFileHandler',\
+    'importer.handlers.xml.handler.XMLFileHandler',\
+    'importer.handlers.sld.handler.SLDFileHandler',\
 ]",
     )
 )
