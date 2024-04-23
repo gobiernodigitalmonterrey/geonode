@@ -91,7 +91,7 @@ urlpatterns += [
     re_path(r"^h_keywords_api$", views.h_keywords, name="h_keywords_api"),
     # Social views
     re_path(r"^account/signup/", CustomSignupView.as_view(), name="account_signup"),
-    re_path(r"^account/logouts/", CustomLogoutView.as_view(), name="account_logout"),
+    re_path(r"^account/logout/", CustomLogoutView.as_view(), name="account_logout"),
     re_path(r"^account/", include("allauth.urls")),
     re_path(r"^invitations/", include("geonode.invitations.urls", namespace="geonode.invitations")),
     re_path(r"^people/", include("geonode.people.urls")),

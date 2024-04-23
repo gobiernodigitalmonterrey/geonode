@@ -73,8 +73,6 @@ class CustomLogoutView(LogoutView):
         the parent class to perform any additional logout tasks.
         """
         try:
-            # Log out the Django session
-            print("Logging out", request)
             django_logout(request)
         except Exception as e:
             # Handle any exceptions that occur during logout
