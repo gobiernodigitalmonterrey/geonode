@@ -74,7 +74,7 @@ class CustomLogoutView(LogoutView):
         """
         try:
             # Log out the Django session
-            print("Logging out", request.user.username)
+            print("Logging out", request)
             django_logout(request)
         except Exception as e:
             # Handle any exceptions that occur during logout
