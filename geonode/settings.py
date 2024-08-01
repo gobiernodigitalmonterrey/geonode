@@ -65,6 +65,8 @@ DEBUG = ast.literal_eval(os.getenv("DEBUG", "True"))
 # otherwise it will raise errors for the missing non-minified dependencies
 DEBUG_STATIC = ast.literal_eval(os.getenv("DEBUG_STATIC", "False"))
 
+ANALYTICS_ID = ast.literal_eval(os.getenv("ANALYTICS_ID", "False"))
+
 FORCE_SCRIPT_NAME = os.getenv("FORCE_SCRIPT_NAME", "")
 
 # Define email service on GeoNode
