@@ -44,6 +44,7 @@ from geonode.base import register_url_event
 from geonode.messaging.urls import urlpatterns as msg_urls
 from .people.views import CustomSignupView
 from oauth2_provider.urls import app_name as oauth2_app_name, base_urlpatterns, oidc_urlpatterns
+from django.shortcuts import redirect
 
 admin.autodiscover()
 
@@ -92,6 +93,7 @@ urlpatterns += [
     # Social views
     re_path(r"^account/signup/", CustomSignupView.as_view(), name="account_signup"),
     re_path(r"^account/", include("allauth.urls")),
+    path("account/signup/", lambda request: redirect("/")),
     re_path(r"^invitations/", include("geonode.invitations.urls", namespace="geonode.invitations")),
     re_path(r"^people/", include("geonode.people.urls")),
     re_path(r"^avatar/", include("avatar.urls")),
