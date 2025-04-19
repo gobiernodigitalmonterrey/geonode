@@ -72,6 +72,8 @@ FORCE_SCRIPT_NAME = os.getenv("FORCE_SCRIPT_NAME", "")
 # Define email service on GeoNode
 EMAIL_ENABLE = ast.literal_eval(os.getenv("EMAIL_ENABLE", "False"))
 
+ANALYTICS_ID = ast.literal_eval(os.getenv("ANALYTICS_ID", "False"))
+
 if EMAIL_ENABLE:
     EMAIL_BACKEND = os.getenv("DJANGO_EMAIL_BACKEND", default="django.core.mail.backends.smtp.EmailBackend")
     EMAIL_HOST = os.getenv("DJANGO_EMAIL_HOST", "localhost")
